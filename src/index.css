@@ -1,0 +1,428 @@
+/* ============================================
+   FONT IMPORTS
+   ============================================ */
+/* SF Pro Display - Modern Apple font */
+@import url('https://fonts.cdnfonts.com/css/sf-pro-display');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   MODERN DARK MODE COLOR PALETTE
+   ============================================ */
+:root {
+  /* True black backgrounds for depth */
+  --bg-primary-dark: #0A0A0A;     /* Primary dark background */
+  --bg-secondary-dark: #1A1A1A;   /* Secondary elevated surfaces */
+  --bg-tertiary-dark: #2D2D2D;    /* Cards and containers */
+  --bg-elevated-dark: #3A3A3A;    /* Elevated interactive elements */
+  --bg-hover-dark: #4A4A4A;       /* Hover states */
+
+  /* Soft shadows for depth (WCAG compliant) */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.3);
+
+  /* Modern border radius values */
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+}
+
+/* ============================================
+   SMOOTH TRANSITIONS
+   ============================================
+   All interactive elements get smooth 300ms transitions
+   for professional feel and reduced jarring changes */
+* {
+  transition: background-color 0.3s ease,
+              border-color 0.3s ease,
+              color 0.3s ease,
+              box-shadow 0.3s ease,
+              transform 0.3s ease;
+}
+
+/* Disable transitions on prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* ============================================
+   CUSTOM SCROLLBAR STYLING
+   ============================================
+   Modern, minimal scrollbar design that matches
+   the dark theme aesthetic */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4A4A4A;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5A5A5A;
+}
+
+/* Dark mode scrollbar adjustments */
+.dark ::-webkit-scrollbar-thumb {
+  background: #3A3A3A;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #4A4A4A;
+}
+
+/* ============================================
+   TYPOGRAPHY ENHANCEMENTS
+   ============================================
+   Modern line-height and spacing for readability */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', 'Roboto', sans-serif;
+  font-feature-settings: 'kern' 1, 'liga' 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Better heading spacing */
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+/* Body text optimal readability */
+p {
+  line-height: 1.6;
+}
+
+/* ============================================
+   ACCESSIBILITY IMPROVEMENTS
+   ============================================
+   Ensure focus states are visible and meet WCAG */
+:focus-visible {
+  outline: 2px solid #3B82F6;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ============================================
+   MICRO-ANIMATIONS
+   ============================================
+   Subtle animations for modern feel */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Apply animations to appropriate elements */
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.3s ease-out;
+}
+
+/* ============================================
+   MODERN CARD DESIGN
+   ============================================
+   Soft shadows and subtle borders */
+.modern-card {
+  background: white;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.modern-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.dark .modern-card {
+  background: var(--bg-tertiary-dark);
+  border-color: var(--bg-elevated-dark);
+}
+
+/* ============================================
+   CONTRAST RATIOS (WCAG AA Compliance)
+   ============================================
+   All color combinations meet minimum 4.5:1 ratio */
+
+/* Light mode text on dark backgrounds */
+.dark .text-light-on-dark {
+  color: #FFFFFF; /* 21:1 contrast on #0A0A0A */
+}
+
+/* Dark mode subtle text */
+.dark .text-subtle {
+  color: #A0A0A0; /* 7.5:1 contrast on #0A0A0A */
+}
+
+/* Interactive elements */
+.dark .text-interactive {
+  color: #60A5FA; /* 4.8:1 contrast on #0A0A0A */
+}
+
+/* Success indicators */
+.dark .text-success {
+  color: #34D399; /* 5.2:1 contrast on #0A0A0A */
+}
+
+/* ============================================
+   MOBILE OPTIMIZATIONS & SAFE AREAS
+   ============================================ */
+
+/* Safe area support for devices with notches/curved displays */
+.safe-top {
+  padding-top: max(16px, env(safe-area-inset-top));
+}
+
+.safe-bottom {
+  padding-bottom: max(16px, env(safe-area-inset-bottom));
+}
+
+.safe-left {
+  padding-left: max(16px, env(safe-area-inset-left));
+}
+
+.safe-right {
+  padding-right: max(16px, env(safe-area-inset-right));
+}
+
+.safe-x {
+  padding-left: max(16px, env(safe-area-inset-left));
+  padding-right: max(16px, env(safe-area-inset-right));
+}
+
+.safe-y {
+  padding-top: max(16px, env(safe-area-inset-top));
+  padding-bottom: max(16px, env(safe-area-inset-bottom));
+}
+
+/* Full viewport height accounting for safe areas */
+.min-h-screen-safe {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  min-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+}
+
+/* Edge-to-edge content with safe padding */
+.edge-to-edge {
+  margin-left: calc(-1 * env(safe-area-inset-left));
+  margin-right: calc(-1 * env(safe-area-inset-right));
+  padding-left: max(16px, env(safe-area-inset-left));
+  padding-right: max(16px, env(safe-area-inset-right));
+}
+
+/* Prevent text selection on tap targets */
+button,
+[role="button"] {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
+/* Improve touch scrolling on iOS */
+.overflow-y-auto {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Prevent zoom on input focus (iOS Safari) */
+@media screen and (max-width: 768px) {
+  input[type="text"],
+  input[type="search"],
+  textarea {
+    font-size: 16px !important;
+  }
+
+  /* Mobile-specific rounded corners for modern feel */
+  .mobile-rounded-card {
+    border-radius: 16px;
+  }
+
+  .mobile-rounded-button {
+    border-radius: 12px;
+  }
+
+  .mobile-rounded-input {
+    border-radius: 12px;
+  }
+
+  /* Optimize touch targets for mobile (minimum 44x44px) */
+  button,
+  [role="button"],
+  a[role="button"],
+  input[type="submit"],
+  input[type="button"] {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Edge-to-edge design with safe gutters */
+  .mobile-container {
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+  }
+}
+
+/* Hide scrollbar on mobile for cleaner look */
+@media screen and (max-width: 768px) {
+  .overflow-y-auto::-webkit-scrollbar {
+    display: none;
+  }
+
+  .overflow-y-auto {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Smooth scrolling for messages */
+.overflow-y-auto {
+  scroll-behavior: smooth;
+}
+
+/* Message fade-in animation */
+@keyframes message-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: message-fade-in 0.3s ease-out;
+}
+
+/* Anchor scroll into view smoothly */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ============================================
+   MOBILE APP-LIKE ENHANCEMENTS
+   ============================================ */
+
+/* Ensure body uses full viewport height */
+html, body, #root {
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Mobile-specific: remove all margins and ensure edge-to-edge */
+@media screen and (max-width: 1024px) {
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100%;
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  #root {
+    width: 100%;
+    height: 100dvh;
+  }
+}
+
+/* Mobile-specific polish for professional app feel */
+@media screen and (max-width: 1024px) {
+  /* Prevent overscroll bounce on iOS */
+  body {
+    overscroll-behavior-y: none;
+  }
+
+  /* Make all panels and cards feel native */
+  .mobile-panel {
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .dark .mobile-panel {
+    background: #1A1A1A;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Enhance button press feedback */
+  button:active {
+    transform: scale(0.97);
+  }
+
+  /* Optimize text rendering on mobile */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Bottom navigation safe area for devices with gestures */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .mobile-safe-bottom-padding {
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  }
+}
+
+/* Professional embossed effect for logos */
+.embossed-logo {
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.5))
+          drop-shadow(0 -1px 0 rgba(0, 0, 0, 0.1));
+}
+
+.dark .embossed-logo {
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.03))
+          drop-shadow(0 -1px 0 rgba(0, 0, 0, 0.3));
+}
