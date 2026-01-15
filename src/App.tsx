@@ -327,11 +327,13 @@ function App() {
           session_id: sessionId,
           lead,
         };
+        console.log('Sending lead webhook (Phase 1):', { session_id: sessionId, lead_source: lead.lead_source, preferred_contact: lead.preferred_contact_method });
       } else {
         payload = {
           session_id: sessionId,
           message: customerMessage,
         };
+        console.log('Sending lead webhook (Phase 2):', { session_id: sessionId, message: customerMessage });
       }
 
       const response = await fetch('https://hook.us2.make.com/mklmvql6d516n6urw11wc55y93au31tm', {
@@ -343,10 +345,12 @@ function App() {
       });
 
       if (!response.ok) {
+        console.error('Lead webhook HTTP error:', response.status, response.statusText);
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const data = await response.json();
+      console.log('Lead webhook response:', data);
       return data;
     } catch (error) {
       console.error('Lead webhook error:', error);

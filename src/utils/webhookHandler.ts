@@ -5,16 +5,43 @@ export const processWebhookResponse = (
   currentTime: Date = new Date(),
   backgroundActivity?: BackgroundActivity
 ): ChatMessage | null => {
-  if (!response || !response.role || !response.message) {
+  // Validate response structure
+  if (!response) {
+    console.error('Webhook response is null or undefined');
+    return null;
+  }
+
+  if (!response.role) {
+    console.error('Webhook response missing role field:', response);
+    return null;
+  }
+
+  if (!response.message) {
+    console.error('Webhook response missing message field:', response);
+    return null;
+  }
+
+  // Ensure message is not empty or just whitespace
+  const trimmedMessage = response.message.trim();
+  if (!trimmedMessage) {
+    console.error('Webhook response has empty message:', response);
     return null;
   }
 
   const messageType = response.role === 'assistant' ? 'assistant' : 'customer';
 
+  console.log('Processing webhook response:', {
+    role: response.role,
+    messageType,
+    messageLength: trimmedMessage.length,
+    hasMultipleLines: trimmedMessage.includes('\n'),
+    customerName: response.customer_name,
+  });
+
   return {
     id: `${Date.now()}-${Math.random()}`,
     type: messageType,
-    text: response.message,
+    text: trimmedMessage,
     timestamp: currentTime,
     senderName:
       messageType === 'customer' ? response.customer_name : 'Assistant',

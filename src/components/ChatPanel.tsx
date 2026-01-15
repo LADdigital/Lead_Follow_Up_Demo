@@ -188,7 +188,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
                     }}
                   >
                     <p
-                      className="text-base leading-relaxed break-words"
+                      className="text-base leading-relaxed break-words whitespace-pre-wrap"
                       style={{ lineHeight: '1.6', wordBreak: 'break-word' }}
                     >
                       {message.text}
