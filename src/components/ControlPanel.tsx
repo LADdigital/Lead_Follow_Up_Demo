@@ -6,10 +6,8 @@ interface ControlPanelProps {
   context: DemoContext;
   systemStatus: SystemStatus;
   sessionId: string;
-  manualMode: boolean;
   onTrigger: (type: TriggerType) => void;
   onRefresh: () => void;
-  onToggleManualMode: () => void;
   onMobileClose?: () => void;
 }
 
@@ -30,10 +28,8 @@ const FOLLOWUP_OPTIONS: Array<{ label: string; value: TriggerType }> = [
 export const ControlPanel: React.FC<ControlPanelProps> = ({
   context,
   systemStatus,
-  manualMode,
   onTrigger,
   onRefresh,
-  onToggleManualMode,
   onMobileClose,
 }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -127,24 +123,6 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
             )}
           </div>
         </div>
-      </div>
-
-      {/* Manual Mode Toggle - Modern switch design */}
-      <div className="px-4 py-4 lg:px-6 lg:py-5 border-b border-gray-200 dark:border-[#2D2D2D]">
-        <h3 className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-4">
-          Mode
-        </h3>
-        <button
-          onClick={onToggleManualMode}
-          className={`w-full px-4 py-3.5 min-h-[48px] text-sm font-semibold rounded-mobile active:scale-[0.98] flex items-center justify-between shadow-modern-sm hover:shadow-modern-md ${
-            manualMode
-              ? 'bg-gradient-to-r from-green-600 to-green-700 text-white hover:from-green-700 hover:to-green-800'
-              : 'bg-white dark:bg-[#2D2D2D] border-2 border-gray-300 dark:border-[#3A3A3A] text-gray-700 dark:text-gray-300 hover:border-gray-400 dark:hover:border-[#4A4A4A] hover:bg-gray-50 dark:hover:bg-[#3A3A3A]'
-          }`}
-        >
-          <span>Manual Mode</span>
-          <span className="font-bold px-2 py-0.5 rounded-md bg-white/20">{manualMode ? 'ON' : 'OFF'}</span>
-        </button>
       </div>
 
       {/* Active Context Section - Modern card layout */}

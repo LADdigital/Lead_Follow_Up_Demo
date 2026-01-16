@@ -246,12 +246,12 @@ function App() {
           sessionId,
           newContext.customerName,
           newContext.salesperson,
-          manualMode,
+          true,
           backgroundActivity
         );
       }
     },
-    [sessionId, handleWebhookResponse, manualMode]
+    [sessionId, handleWebhookResponse]
   );
 
   const handleSendMessage = useCallback(
@@ -263,43 +263,26 @@ function App() {
         lastMessageTime: new Date(),
       }));
 
-      if (manualMode) {
-        const assistantResponse = await sendCustomerMessageToAssistant(
+      const assistantResponse = await sendCustomerMessageToAssistant(
+        sessionId,
+        context.customerName,
+        context.salesperson,
+        text
+      );
+
+      if (assistantResponse) {
+        const backgroundActivity = generateManualModeBackgroundActivity(context, false);
+        await handleWebhookResponse(
+          assistantResponse as WebhookResponse,
           sessionId,
           context.customerName,
           context.salesperson,
-          text
+          true,
+          backgroundActivity
         );
-
-        if (assistantResponse) {
-          const backgroundActivity = generateManualModeBackgroundActivity(context, false);
-          await handleWebhookResponse(
-            assistantResponse as WebhookResponse,
-            sessionId,
-            context.customerName,
-            context.salesperson,
-            true,
-            backgroundActivity
-          );
-        }
-      } else {
-        const payload = generateWebhookPayload(sessionId, context, 'customer_message', text);
-        const response = await sendWebhookPlaceholder(payload, 'customer_message');
-
-        if (response) {
-          const backgroundActivity = generateManualModeBackgroundActivity(context, false);
-          await handleWebhookResponse(
-            response as WebhookResponse,
-            sessionId,
-            context.customerName,
-            context.salesperson,
-            false,
-            backgroundActivity
-          );
-        }
       }
     },
-    [sessionId, context, handleWebhookResponse, manualMode]
+    [sessionId, context, handleWebhookResponse]
   );
 
   const handleRefreshDemo = useCallback(() => {
@@ -478,7 +461,7 @@ function App() {
             messages={messages}
             systemStatus={systemStatus}
             onSendMessage={demoMode === 'lead-followup' ? handleLeadReply : handleSendMessage}
-            manualMode={demoMode === 'lead-followup' ? true : manualMode}
+            manualMode={true}
           />
           {/* Footer - Only visible on mobile */}
           <div className="lg:hidden">
@@ -514,8 +497,6 @@ function App() {
               onTrigger={handleTrigger}
               onRefresh={handleRefreshDemo}
               sessionId={sessionId}
-              manualMode={manualMode}
-              onToggleManualMode={handleToggleManualMode}
               onMobileClose={handleMenuClose}
             />
           ) : (
