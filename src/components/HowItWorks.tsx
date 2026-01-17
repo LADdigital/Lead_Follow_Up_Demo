@@ -156,9 +156,10 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onClose }) => {
                         Conversation Flow
                       </h3>
                       <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                        <br/>
-                       <br/><br/>
-                        All responses are handled in real time.
+                        Depending on the mode:<br/>
+                        • In post-purchase demo mode, the assitant sends a follow up message depending on the sold date.<br/>
+                        • In inbound lead automation mode, it sends a fresh lead first touch message. In both modes YOU respond as the customer.<br/><br/>
+                        All responses are handled in real time and are NOT scripted.
                       </p>
                     </div>
                   </div>
