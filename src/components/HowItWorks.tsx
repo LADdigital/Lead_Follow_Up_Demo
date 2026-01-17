@@ -156,9 +156,8 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onClose }) => {
                         Conversation Flow
                       </h3>
                       <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                        Depending on the mode:<br/>
-                        • In post-purchase demo mode, a simulated customer may respond automatically.<br/>
-                        • In inbound lead automation mode, YOU act as the customer and reply manually.<br/><br/>
+                        <br/>
+                       <br/><br/>
                         All responses are handled in real time.
                       </p>
                     </div>
